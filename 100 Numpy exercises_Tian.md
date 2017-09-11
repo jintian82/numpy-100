@@ -188,13 +188,32 @@ z = np.diag(np.arange(1,5), k=-1)
 
 #### 19. Create a 8x8 matrix and fill it with a checkerboard pattern (★☆☆)
 
+```python
+z = np.zeros((8, 8), dtype=int)
+z[::2, 1::2] = 1
+z[1::2, ::2] = 1
+print(z)
+```
+
 
 
 #### 20. Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element?
 
+```python
+z = np.arange(6*7*8).reshape((6,7,8))
+np.where(z == 99)
+# 1 5 4
+```
+
 
 
 #### 21. Create a checkerboard 8x8 matrix using the tile function (★☆☆)
+
+```python
+a = np.eye(2)
+z = np.tile(a, (4, 4))
+print(z)
+```
 
 
 
