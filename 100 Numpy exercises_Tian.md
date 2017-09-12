@@ -219,17 +219,43 @@ print(z)
 
 #### 22. Normalize a 5x5 random matrix (★☆☆)
 
+```python
+a = np.random.random((5, 5))
+z = (a - np.min(a))/(np.max(a) - np.min(a))
+print(z)
+```
+
 
 
 #### 23. Create a custom dtype that describes a color as four unsigned bytes (RGBA) (★☆☆)
+
+```python
+color = np.dtype([("r", np.ubyte, 1),
+                  ("g", np.ubyte, 1),
+                  ("b", np.ubyte, 1),
+                  ("a", np.ubyte, 1)])
+```
 
 
 
 #### 24. Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (★☆☆)
 
+```python
+a = np.random.random([5, 3])
+b = np.random.random([3, 2])
+z = a@b
+print(z)
+```
+
 
 
 #### 25. Given a 1D array, negate all elements which are between 3 and 8, in place. (★☆☆)
+
+```python
+a = np.arange(15)
+a[(a <= 8) & (a > 3)] *= -1
+print(a)
+```
 
 
 
@@ -239,9 +265,9 @@ print(z)
 ```python
 # Author: Jake VanderPlas
 
-print(sum(range(5),-1))
+print(sum(range(5),-1))# 9
 from numpy import *
-print(sum(range(5),-1))
+print(sum(range(5),-1))#10
 ```
 
 #### 27. Consider an integer vector Z, which of these expressions are legal? (★☆☆)
@@ -267,13 +293,29 @@ np.array([np.nan]).astype(int).astype(float)
 
 #### 29. How to round away from zero a float array ? (★☆☆)
 
+```pyt
+a = np.random.randn(10)
+print(np.copysign(np.ceil(abs(a)), a))
+```
+
 
 
 #### 30. How to find common values between two arrays? (★☆☆)
 
+```python
+a = np.arange(1, 10)
+b = np.arange(5, 15)
+print(np.intersect1d(a, b))
+```
+
 
 
 #### 31. How to ignore all numpy warnings (not recommended)? (★☆☆)
+
+```python
+with np.errstate(divide='ignore'):    
+    Z = np.ones(1) / 0
+```
 
 
 
@@ -281,58 +323,141 @@ np.array([np.nan]).astype(int).astype(float)
 
 
 ```python
-np.sqrt(-1) == np.emath.sqrt(-1)
+np.sqrt(-1) == np.emath.sqrt(-1) # False
 ```
 
 #### 33. How to get the dates of yesterday, today and tomorrow? (★☆☆)
+
+```python
+today = np.datetime64("today", "D")
+yesterday = today - 1
+tomorrow = today + 1
+```
 
 
 
 #### 34. How to get all the dates corresponding to the month of July 2016? (★★☆)
 
+```python
+Z = np.arange('2016-07', '2016-08', dtype='datetime64[D]')
+print(Z)
+```
+
 
 
 #### 35. How to compute ((A+B)\*(-A/2)) in place (without copy)? (★★☆)
+
+```python
+a = np.ones(3)*1
+b = np.ones(3)*2
+
+np.add(a, b, out=b)
+np.divide(a, 2, out = a)
+np.negative(a, out=a)
+np.multiply(a, b, out=a)
+```
 
 
 
 #### 36. Extract the integer part of a random array using 5 different methods (★★☆)
 
+```python
+a = np.random.uniform(0, 10, 10)
+a1 = round(a)
+a2 = np.ceil(a)
+a3 = np.floor(a)
+a4 = a - a % 1
+a5 = np.trunc(a)
+a6 = a.astype("int32")
+```
+
 
 
 #### 37. Create a 5x5 matrix with row values ranging from 0 to 4 (★★☆)
+
+```python
+z = np.tile(np.arange(0,5), (5, 1))
+print(z)   
+```
 
 
 
 #### 38. Consider a generator function that generates 10 integers and use it to build an array (★☆☆)
 
+```python
+def generate():
+    for x in range(10):
+        yield x
+Z = np.fromiter(generate(),dtype=float,count=-1)
+print(Z)
+```
+
 
 
 #### 39. Create a vector of size 10 with values ranging from 0 to 1, both excluded (★★☆)
+
+```python
+z = np.linspace(0, 1, 10)
+print(z) 
+```
 
 
 
 #### 40. Create a random vector of size 10 and sort it (★★☆)
 
+```python
+z = np.random.random(10)
+z = np.sort(z)
+print(z)
+```
+
 
 
 #### 41. How to sum a small array faster than np.sum? (★★☆)
+
+```python
+a = np.random.random(10)
+
+```
 
 
 
 #### 42. Consider two random array A and B, check if they are equal (★★☆)
 
+```py
+A = np.random.randint(0,2,5)
+B = np.random.randint(0,2,5)
+equal = np.allclose(A,B)
+print(equal)
+```
+
 
 
 #### 43. Make an array immutable (read-only) (★★☆)
+
+```python
+Z = np.zeros(10)
+Z.flags.writeable = False
+Z[0] = 1
+```
 
 
 
 #### 44. Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates (★★☆)
 
+```py
+
+```
+
 
 
 #### 45. Create random vector of size 10 and replace the maximum value by 0 (★★☆)
+
+```py
+z = np.random.random(10)
+z[argmax(z)] = 0
+print(z)
+```
 
 
 
@@ -341,6 +466,10 @@ np.sqrt(-1) == np.emath.sqrt(-1)
 
 
 ####  47. Given two arrays, X and Y, construct the Cauchy matrix C (Cij =1/(xi - yj))
+
+```py
+
+```
 
 
 
@@ -361,6 +490,13 @@ np.sqrt(-1) == np.emath.sqrt(-1)
 
 
 #### 52. Consider a random vector with shape (100,2) representing coordinates, find point by point distances (★★☆)
+
+```py
+a = np.random.random([3, 2])
+a1 = a[:, 0]
+a2 = a[:, 1]
+d = np.sqrt(np.subtract.outer(a1, a1)**2 + np.subtract.outer(a2, a2)**2)
+```
 
 
 
