@@ -631,6 +631,17 @@ d = np.sqrt(np.subtract.outer(a1, a1)**2 + np.subtract.outer(a2, a2)**2)
 
 #### 84. Extract all the contiguous 3x3 blocks from a random 10x10 matrix (★★★)
 
+```python
+# Author: Chris Barker
+
+Z = np.random.randint(0,5,(10,10))
+n = 3
+i = 1 + (Z.shape[0]-3)
+j = 1 + (Z.shape[1]-3)
+C = stride_tricks.as_strided(Z, shape=(i, j, n, n), strides=Z.strides + Z.strides)
+print(C)
+```
+
 
 
 #### 85. Create a 2D array subclass such that Z\[i,j\] == Z\[j,i\] (★★★)
